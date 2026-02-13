@@ -1,8 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Online Safety Lessons</title>
+  <style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #e6f3ff;
+    color: #123;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 240px;
+    background: #2f6fff;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+
+  #sidebar .badge {
+    width: 140px;
+    height: 140px;
+    background: #ffe66b;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 4px solid white;
+  }
+
+  #sidebar .badge img {
+    width: 100%;
+    height: auto;
+  }
+
+  #sidebar h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #sidebar a {
+    display: block;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  #sidebar a:hover {
+    background: rgba(255,255,255,0.35);
+  }
+
+  /* MAIN CONTENT */
+  #content {
+    flex: 1;
+  }
+
+  nav {
+    background: #2f6fff;
+    padding: 12px 20px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 16px;
+  }
+
+  /* PROGRESS BAR */
+  #progress-container {
+    max-width: 900px;
+    margin: 20px auto 0;
+    padding: 0 16px;
+  }
+
+  #progress-label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #123a7a;
+  }
+
+  #progress-bar-bg {
+    width: 100%;
+    height: 20px;
+    background: #c7dfff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #2f6fff;
+    position: relative;
+  }
+
+  #progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #ffe66b;
+    border-right: 3px solid #2f6fff;
+    transition: width 0.4s ease;
+  }
+
+  /* MOVING MONKEY */
+  #progress-monkey {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    width: 40px;
+    height: auto;
+    transition: left 0.4s ease;
+    pointer-events: none;
+    animation: monkeyBounce 0.8s infinite ease-in-out;
+  }
+
+  /* BOUNCE ANIMATION */
+  @keyframes monkeyBounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* WIGGLE ANIMATION */
+  @keyframes monkeyWiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .monkey-wiggle {
+    animation: monkeyWiggle 0.4s ease-in-out 4;
+  }
+
+  /* BANANA TRAIL */
+  .banana {
+    position: absolute;
+    width: 18px;
+    height: auto;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  /* SPARKLE TRAIL */
+  .sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: sparkleFade 0.8s forwards;
+  }
+
+  @keyframes sparkleFade {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(2); }
+  }
+
+  /* SPEECH BUBBLE */
+  #monkey-speech {
+    display: none;
+    background: #ffe66b;
+    border: 3px solid #2f6fff;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-weight: bold;
+    color: #123a7a;
+    width: fit-content;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  /* PAGE LAYOUT */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+  }
+
+  .lesson-bubble {
+    background: #ffe66b;
+    border: 3px solid #2f6fff;
+    border-radius: 24px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .lesson-bubble h2 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    color: #123a7a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .progress-check {
+    transform: scale(1.3);
+    cursor: pointer;
+  }
+
+  .next-btn {
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: #2f6fff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .next-btn:hover {
+    background: #1f4fcc;
+  }
+
+  #completion-badge {
+    display: none;
+    text-align: center;
+    background: #ffe66b;
+    border: 4px solid #2f6fff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #123a7a;
+  }
+
+  #confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    display: none;
+  }
+</style>
+
 
   <style>
     body {
