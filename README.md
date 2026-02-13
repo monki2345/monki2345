@@ -91,6 +91,7 @@ This roadmap outlines the planned improvements and future features for monki2345
 - Add more lesson topics (passwords, scams, digital footprints)  
 - Add sound effects or subtle animations  
 - Add a “Lesson Progress” tracker  
+- **Add a “Leave a Review” section (local-only, no data collection)**  
 
 ---
 
