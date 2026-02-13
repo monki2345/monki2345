@@ -2,31 +2,351 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Online Safety Lessons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>monki2345 - Online Safety Lessons</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Your CSS goes here (same CSS you already have) -->
+    body {
+      font-family: 'Lexend', sans-serif;
+      background: linear-gradient(135deg, #e6f3ff 0%, #f0f7ff 100%);
+      color: #123;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    #sidebar {
+      width: 260px;
+      background: #2f6fff;
+      color: white;
+      padding: 24px;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    #sidebar .badge {
+      width: 160px;
+      height: 160px;
+      background: #ffe66b;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border: 5px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #sidebar .badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #sidebar h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    #sidebar a:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: #ffe66b;
+      transform: translateX(4px);
+    }
+
+    /* MAIN CONTENT */
+    #content {
+      flex: 1;
+      margin-left: 260px;
+      padding-bottom: 40px;
+    }
+
+    nav {
+      background: #2f6fff;
+      padding: 16px 32px;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* PROGRESS BAR */
+    #progress-container {
+      max-width: 900px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+
+    #progress-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #123a7a;
+      font-size: 1.1rem;
+    }
+
+    #progress-bar-bg {
+      width: 100%;
+      height: 28px;
+      background: #c7dfff;
+      border-radius: 14px;
+      overflow: visible;
+      border: 3px solid #2f6fff;
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ffe66b 0%, #ffd700 100%);
+      border-radius: 11px;
+      transition: width 0.5s ease;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);
+    }
+
+    /* MOVING MONKEY */
+    #progress-monkey {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      transition: left 0.5s ease;
+      pointer-events: none;
+      animation: monkeyBounce 1s infinite ease-in-out;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+
+    #progress-monkey img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes monkeyBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes monkeyWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      50% { transform: rotate(15deg); }
+      75% { transform: rotate(-15deg); }
+    }
+
+    .monkey-wiggle {
+      animation: monkeyWiggle 0.5s ease-in-out 5 !important;
+    }
+
+    /* TRAILS */
+    .trail-item {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      animation: trailFade 1.5s ease-out forwards;
+    }
+
+    @keyframes trailFade {
+      0% { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.3); }
+    }
+
+    /* SPEECH BUBBLE */
+    #monkey-speech {
+      display: none;
+      background: #ffe66b;
+      border: 3px solid #2f6fff;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-weight: 600;
+      color: #123a7a;
+      width: fit-content;
+      margin: 16px auto;
+      text-align: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: popIn 0.3s ease-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* PAGE LAYOUT */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    .page h1 {
+      color: #2f6fff;
+      margin-bottom: 32px;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    .lesson-card {
+      background: white;
+      border: 3px solid #2f6fff;
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(47, 111, 255, 0.1);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(47, 111, 255, 0.2);
+      border-color: #ffe66b;
+    }
+
+    .lesson-card h2 {
+      color: #123a7a;
+      margin-bottom: 12px;
+      font-size: 1.6rem;
+    }
+
+    .lesson-card p {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #2f6fff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Lexend', sans-serif;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: #1f4fcc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(47, 111, 255, 0.3);
+    }
+
+    #completion-badge {
+      display: none;
+      text-align: center;
+      background: linear-gradient(135deg, #ffe66b 0%, #ffd700 100%);
+      border: 5px solid #2f6fff;
+      padding: 32px;
+      border-radius: 24px;
+      margin-top: 32px;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #123a7a;
+      box-shadow: 0 8px 24px rgba(47, 111, 255, 0.3);
+    }
+
+    /* CONFETTI */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      display: none;
+      z-index: 9999;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      #sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+      }
+
+      #content {
+        margin-left: 0;
+      }
+
+      .page h1 {
+        font-size: 2rem;
+      }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      opacity: 0.8;
+      padding: 20px;
+      color: #666;
+    }
+  </style>
 </head>
-
 <body>
 
   <!-- SIDEBAR -->
   <div id="sidebar">
     <div class="badge">
-      <img src="logo.png" alt="Mascot">
+      <img src="logo.png" alt="monki2345 mascot">
     </div>
 
-    <h3>Lessons</h3>
+    <h3>Safety Lessons</h3>
 
-    <a href="lesson1.html">Strong Passwords</a>
-    <a href="lesson2.html">Spotting Scams</a>
-    <a href="lesson3.html">Digital Footprints</a>
+    <a href="lesson1.html">🔐 Strong Passwords</a>
+    <a href="lesson2.html">🎣 Spotting Scams</a>
+    <a href="lesson3.html">👣 Digital Footprints</a>
   </div>
 
   <!-- MAIN CONTENT -->
   <div id="content">
-
     <nav>
-      <div>Online Safety Lessons</div>
+      <div>🐵 monki2345</div>
       <div>
         <a href="index.html">Home</a>
         <a href="lessons.html">Lessons</a>
@@ -35,42 +355,154 @@
 
     <!-- PROGRESS BAR -->
     <div id="progress-container">
-      <div id="progress-label">Progress: 0%</div>
+      <div id="progress-label">Your Progress: 0%</div>
       <div id="progress-bar-bg">
         <div id="progress-bar-fill"></div>
-        <img id="progress-monkey" src="logo.png" alt="Monkey">
+        <div id="progress-monkey">
+          <img src="logo.png" alt="Progress monkey">
+        </div>
       </div>
     </div>
 
-    <div id="monkey-speech">Woohoo! You did it!</div>
+    <div id="monkey-speech">🎉 Woohoo! You did it! 🎉</div>
 
     <main class="page">
-      <h1>Choose a Lesson</h1>
+      <h1>Choose Your Lesson</h1>
 
-      <div class="lesson-bubble">
-        <h2>Strong Passwords</h2>
-        <p>Learn how to create strong, safe passwords.</p>
-        <a class="next-btn" href="lesson1.html">Start Lesson</a>
+      <div class="lesson-card">
+        <h2>🔐 Strong Passwords</h2>
+        <p>Learn how to create passwords that keep hackers out and your data safe. Discover what makes a password strong and why it matters.</p>
+        <a class="btn" href="lesson1.html">Start Lesson →</a>
       </div>
 
-      <div class="lesson-bubble">
-        <h2>Spotting Scams & Phishing</h2>
-        <p>Learn how to avoid online tricks and scams.</p>
-        <a class="next-btn" href="lesson2.html">Start Lesson</a>
+      <div class="lesson-card">
+        <h2>🎣 Spotting Scams & Phishing</h2>
+        <p>Scammers try to trick people every day. Learn how to recognize fake messages, suspicious links, and protect yourself online.</p>
+        <a class="btn" href="lesson2.html">Start Lesson →</a>
       </div>
 
-      <div class="lesson-bubble">
-        <h2>Digital Footprints</h2>
-        <p>Learn how your online actions leave a trail.</p>
-        <a class="next-btn" href="lesson3.html">Start Lesson</a>
+      <div class="lesson-card">
+        <h2>👣 Digital Footprints</h2>
+        <p>Everything you do online leaves a trail. Learn how to keep your digital footprint positive and protect your future.</p>
+        <a class="btn" href="lesson3.html">Start Lesson →</a>
+      </div>
+
+      <div id="completion-badge">
+        🌟 Amazing! You've completed all lessons! 🌟
       </div>
     </main>
 
+    <footer>
+      <p>© 2026 monki2345 — Licensed under CC BY 4.0</p>
+    </footer>
   </div>
 
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Your JS goes here (same JS you already have) -->
+  <script>
+    // Progress tracking
+    function updateProgress() {
+      const lessons = ['passwords', 'scams', 'footprints'];
+      let completed = 0;
 
+      lessons.forEach(lesson => {
+        if (localStorage.getItem(`lesson_${lesson}`) === 'true') {
+          completed++;
+        }
+      });
+
+      const percent = Math.round((completed / lessons.length) * 100);
+      
+      document.getElementById('progress-label').textContent = 
+        `Your Progress: ${percent}%`;
+      
+      const fill = document.getElementById('progress-bar-fill');
+      fill.style.width = percent + '%';
+
+      // Move monkey
+      const monkey = document.getElementById('progress-monkey');
+      const barWidth = document.getElementById('progress-bar-bg').offsetWidth;
+      const monkeyX = (percent / 100) * (barWidth - 50);
+      monkey.style.left = monkeyX + 'px';
+
+      // Show completion
+      if (percent === 100) {
+        showCompletion();
+      }
+    }
+
+    function showCompletion() {
+      const badge = document.getElementById('completion-badge');
+      const speech = document.getElementById('monkey-speech');
+      const monkey = document.getElementById('progress-monkey');
+      
+      badge.style.display = 'block';
+      speech.style.display = 'block';
+      monkey.classList.add('monkey-wiggle');
+      
+      startConfetti();
+    }
+
+    function startConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      canvas.style.display = 'block';
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = [];
+      const colors = ['#ffe66b', '#2f6fff', '#ff9f1c', '#4CAF50', '#E91E63'];
+      
+      for (let i = 0; i < 200; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 10 + 5,
+          speed: Math.random() * 3 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 5 - 2.5
+        });
+      }
+
+      let running = true;
+
+      function animate() {
+        if (!running) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pieces.forEach(p => {
+          p.y += p.speed;
+          p.rotation += p.rotationSpeed;
+          
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+          ctx.restore();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      setTimeout(() => {
+        running = false;
+        canvas.style.display = 'none';
+      }, 10000);
+    }
+
+    // Initialize
+    updateProgress();
+  </script>
 </body>
 </html>
