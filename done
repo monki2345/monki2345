@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congratulations! - monki2345</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lexend', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .teacher-monkey {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 30px;
+      animation: wiggle 2s ease-in-out infinite;
+    }
+
+    .teacher-monkey img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .certificate {
+      background: white;
+      border: 8px solid #ffd700;
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .certificate::before,
+    .certificate::after {
+      content: '⭐';
+      position: absolute;
+      font-size: 3rem;
+      color: #ffd700;
+    }
+
+    .certificate::before {
+      top: -20px;
+      left: -20px;
+    }
+
+    .certificate::after {
+      bottom: -20px;
+      right: -20px;
+    }
+
+    .certificate h1 {
+      color: #667eea;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .certificate h2 {
+      color: #ffd700;
+      font-size: 2rem;
+      margin-bottom: 24px;
+    }
+
+    .certificate p {
+      color: #333;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .gold-star {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 32px auto;
+      font-size: 4rem;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .skills-learned {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .skill-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      border-radius: 16px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .skill-badge .icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: 'Lexend', sans-serif;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #ffd700;
+      color: #333;
+    }
+
+    .btn-primary:hover {
+      background: #ffed4e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 3px solid #667eea;
+    }
+
+    .btn-secondary:hover {
+      background: #f0f7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .quote {
+      background: rgba(255,255,255,0.1);
+      border-left: 4px solid #ffd700;
+      padding: 20px;
+      margin: 32px 0;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .certificate {
+        padding: 32px 20px;
+      }
+
+      .certificate h1 {
+        font-size: 2rem;
+      }
+
+      .certificate h2 {
+        font-size: 1.5rem;
+      }
+
+      .teacher-monkey {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    footer {
+      color: rgba(255,255,255,0.8);
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti-canvas" id="confetti"></canvas>
+
+  <div class="container">
+    <div class="teacher-monkey">
+      <img src="logo.png" alt="Teacher Monkey">
+    </div>
+
+    <div class="certificate">
+      <h1>🎓 Congratulations! 🎓</h1>
+      <h2>You Did It!</h2>
+
+      <p><strong>You've successfully completed all the online safety lessons!</strong></p>
+
+      <div class="gold-star">⭐</div>
+
+      <p>You now know how to:</p>
+
+      <div class="skills-learned">
+        <div class="skill-badge">
+          <div class="icon">🔐</div>
+          Create strong, secure passwords
+        </div>
+        <div class="skill-badge">
+          <div class="icon">🎣</div>
+          Spot scams and phishing attempts
+        </div>
+        <div class="skill-badge">
+          <div class="icon">👣</div>
+          Manage your digital footprint
+        </div>
+      </div>
+
+      <p style="margin-top: 32px;">These skills will help keep you safe online for years to come. Remember to think before you click, post, or share!</p>
+    </div>
+
+    <div class="quote">
+      "The internet is an amazing place, but it's up to you to use it wisely. Keep learning, stay curious, and always stay safe!" 
+      <br>– Your friend, monki2345 🐵
+    </div>
+
+    <div class="buttons">
+      <a href="lessons.html" class="btn btn-primary">Review Lessons</a>
+      <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+
+    <footer>
+      <p>© 2026 monki2345 — Licensed under CC BY 4.0</p>
+      <p style="margin-top: 8px;">Created for the Girls Who Code Challenge</p>
+    </footer>
+  </div>
+
+  <script>
+    // Confetti celebration
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#ffd700', '#ffed4e', '#667eea', '#764ba2', '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'];
+    const pieces = [];
+
+    class Confetti {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height - canvas.height;
+        this.size = Math.random() * 8 + 6;
+        this.speedY = Math.random() * 3 + 2;
+        this.speedX = Math.random() * 2 - 1;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 10 - 5;
+        this.shape = Math.random() > 0.5 ? 'square' : 'circle';
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.rotation += this.rotationSpeed;
+
+        if (this.y > canvas.height) {
+          this.y = -10;
+          this.x = Math.random() * canvas.width;
+        }
+
+        if (this.x > canvas.width) {
+          this.x = 0;
+        } else if (this.x < 0) {
+          this.x = canvas.width;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.fillStyle = this.color;
+
+        if (this.shape === 'square') {
+          ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size/2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+    }
+
+    // Create confetti pieces
+    for (let i = 0; i < 250; i++) {
+      pieces.push(new Confetti());
+    }
+
+    let animationRunning = true;
+
+    function animate() {
+      if (!animationRunning) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      pieces.forEach(piece => {
+        piece.update();
+        piece.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Stop confetti after 15 seconds
+    setTimeout(() => {
+      animationRunning = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 15000);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Mark all lessons as complete if visiting this page
+    localStorage.setItem('lesson_passwords', 'true');
+    localStorage.setItem('lesson_scams', 'true');
+    localStorage.setItem('lesson_footprints', 'true');
+  </script>
+</body>
+</html>
