@@ -4,257 +4,9 @@
   <meta charset="UTF-8">
   <title>Online Safety Lessons</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #e6f3ff;
-      color: #123;
-      display: flex;
-    }
-
-    /* SIDEBAR */
-    #sidebar {
-      width: 240px;
-      background: #2f6fff;
-      color: white;
-      padding: 20px;
-      box-sizing: border-box;
-      min-height: 100vh;
-    }
-
-    #sidebar .badge {
-      width: 140px;
-      height: 140px;
-      background: #ffe66b;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      border: 4px solid white;
-    }
-
-    #sidebar .badge img {
-      width: 100%;
-      height: auto;
-    }
-
-    #sidebar h3 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    #sidebar a {
-      display: block;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 10px;
-      margin-bottom: 10px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    #sidebar a:hover {
-      background: rgba(255,255,255,0.35);
-    }
-
-    /* MAIN CONTENT */
-    #content {
-      flex: 1;
-    }
-
-    nav {
-      background: #2f6fff;
-      padding: 12px 20px;
-      color: white;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 16px;
-    }
-
-    /* PROGRESS BAR */
-    #progress-container {
-      max-width: 900px;
-      margin: 20px auto 0;
-      padding: 0 16px;
-    }
-
-    #progress-label {
-      font-weight: bold;
-      margin-bottom: 6px;
-      color: #123a7a;
-    }
-
-    #progress-bar-bg {
-      width: 100%;
-      height: 20px;
-      background: #c7dfff;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid #2f6fff;
-      position: relative;
-    }
-
-    #progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #ffe66b;
-      border-right: 3px solid #2f6fff;
-      transition: width 0.4s ease;
-    }
-
-    /* MOVING MONKEY */
-    #progress-monkey {
-      position: absolute;
-      top: -25px;
-      left: 0;
-      width: 40px;
-      height: auto;
-      transition: left 0.4s ease;
-      pointer-events: none;
-      animation: monkeyBounce 0.8s infinite ease-in-out;
-    }
-
-    /* BOUNCE ANIMATION */
-    @keyframes monkeyBounce {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* WIGGLE ANIMATION */
-    @keyframes monkeyWiggle {
-      0% { transform: rotate(0deg); }
-      25% { transform: rotate(-10deg); }
-      50% { transform: rotate(10deg); }
-      75% { transform: rotate(-10deg); }
-      100% { transform: rotate(0deg); }
-    }
-
-    .monkey-wiggle {
-      animation: monkeyWiggle 0.4s ease-in-out 4;
-    }
-
-    /* BANANA TRAIL */
-    .banana {
-      position: absolute;
-      width: 18px;
-      height: auto;
-      pointer-events: none;
-      opacity: 0.9;
-    }
-
-    /* SPARKLE TRAIL */
-    .sparkle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: sparkleFade 0.8s forwards;
-    }
-
-    @keyframes sparkleFade {
-      from { opacity: 1; transform: scale(1); }
-      to { opacity: 0; transform: scale(2); }
-    }
-
-    /* SPEECH BUBBLE */
-    #monkey-speech {
-      display: none;
-      background: #ffe66b;
-      border: 3px solid #2f6fff;
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-weight: bold;
-      color: #123a7a;
-      width: fit-content;
-      margin: 10px auto;
-      text-align: center;
-    }
-
-    /* PAGE LAYOUT */
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    .lesson-bubble {
-      background: #ffe66b;
-      border: 3px solid #2f6fff;
-      border-radius: 24px;
-      padding: 18px 20px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .lesson-bubble h2 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-      color: #123a7a;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .progress-check {
-      transform: scale(1.3);
-      cursor: pointer;
-    }
-
-    .next-btn {
-      margin-top: 12px;
-      padding: 10px 16px;
-      background: #2f6fff;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .next-btn:hover {
-      background: #1f4fcc;
-    }
-
-    #completion-badge {
-      display: none;
-      text-align: center;
-      background: #ffe66b;
-      border: 4px solid #2f6fff;
-      padding: 20px;
-      border-radius: 20px;
-      margin-top: 20px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #123a7a;
-    }
-
-    #confetti-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      display: none;
-    }
-  </style>
+  <!-- Your CSS goes here (same CSS you already have) -->
 </head>
+
 <body>
 
   <!-- SIDEBAR -->
@@ -265,9 +17,9 @@
 
     <h3>Lessons</h3>
 
-    <a href="#lesson-passwords">Strong Passwords</a>
-    <a href="#lesson-scams">Spotting Scams</a>
-    <a href="#lesson-footprints">Digital Footprints</a>
+    <a href="lesson1.html">Strong Passwords</a>
+    <a href="lesson2.html">Spotting Scams</a>
+    <a href="lesson3.html">Digital Footprints</a>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -290,216 +42,35 @@
       </div>
     </div>
 
-    <!-- MONKEY SPEECH -->
     <div id="monkey-speech">Woohoo! You did it!</div>
 
     <main class="page">
+      <h1>Choose a Lesson</h1>
 
-      <!-- LESSON 1 -->
-      <section id="lesson-passwords" class="lesson-bubble">
-        <h2>
-          Lesson: Strong Passwords
-          <input type="checkbox" class="progress-check" data-lesson="passwords">
-        </h2>
+      <div class="lesson-bubble">
+        <h2>Strong Passwords</h2>
+        <p>Learn how to create strong, safe passwords.</p>
+        <a class="next-btn" href="lesson1.html">Start Lesson</a>
+      </div>
 
-        <p><strong>What is a password?</strong><br>
-        A password is a secret code that protects your accounts. Only you should know it.</p>
+      <div class="lesson-bubble">
+        <h2>Spotting Scams & Phishing</h2>
+        <p>Learn how to avoid online tricks and scams.</p>
+        <a class="next-btn" href="lesson2.html">Start Lesson</a>
+      </div>
 
-        <p><strong>How to make a strong password:</strong></p>
-        <ul>
-          <li>Use 12+ characters</li>
-          <li>Mix letters, numbers, and symbols</li>
-          <li>Avoid personal info</li>
-        </ul>
-
-        <p><strong>Monkey Challenge:</strong><br>
-        Imagine someone tries to guess your password. Which part of your life would they guess first?<br>
-        <em>If your password includes that… change it.</em></p>
-
-        <button class="next-btn" onclick="scrollToLesson('lesson-scams')">Next Lesson</button>
-      </section>
-
-      <!-- LESSON 2 -->
-      <section id="lesson-scams" class="lesson-bubble">
-        <h2>
-          Lesson: Spotting Scams &amp; Phishing
-          <input type="checkbox" class="progress-check" data-lesson="scams">
-        </h2>
-
-        <p><strong>What is phishing?</strong><br>
-        When someone tries to trick you into giving away personal info.</p>
-
-        <p><strong>Monkey Challenge:</strong><br>
-        Read this message in your head:<br>
-        <em>“Your account will be deleted in 24 hours unless you click here.”</em><br>
-        Now ask yourself:<br>
-        <strong>Who benefits if you panic?</strong><br>
-        If the answer isn’t “you,” it’s probably a scam.</p>
-
-        <button class="next-btn" onclick="scrollToLesson('lesson-footprints')">Next Lesson</button>
-      </section>
-
-      <!-- LESSON 3 -->
-      <section id="lesson-footprints" class="lesson-bubble">
-        <h2>
-          Lesson: Digital Footprints
-          <input type="checkbox" class="progress-check" data-lesson="footprints">
-        </h2>
-
-        <p>Your digital footprint is everything you post or do online.</p>
-
-        <p><strong>Monkey Challenge:</strong><br>
-        Think of the last thing you posted online.<br>
-        Now imagine it being shown on a giant screen in your school cafeteria.<br>
-        <em>If that idea makes you cringe, it’s a clue for next time.</em></p>
-
-        <button class="next-btn" onclick="scrollToLesson('completion-badge')">Finish</button>
-      </section>
-
-      <!-- COMPLETION BADGE -->
-      <div id="completion-badge">🎉 You finished all lessons! 🎉</div>
-
+      <div class="lesson-bubble">
+        <h2>Digital Footprints</h2>
+        <p>Learn how your online actions leave a trail.</p>
+        <a class="next-btn" href="lesson3.html">Start Lesson</a>
+      </div>
     </main>
+
   </div>
 
-  <!-- CONFETTI CANVAS -->
   <canvas id="confetti-canvas"></canvas>
 
-  <script>
-    const checks = document.querySelectorAll(".progress-check");
+  <!-- Your JS goes here (same JS you already have) -->
 
-    function updateProgress() {
-      const total = checks.length;
-      let completed = 0;
-
-      checks.forEach(check => {
-        const key = "lesson_" + check.dataset.lesson;
-        if (localStorage.getItem(key) === "true") {
-          completed++;
-          check.checked = true;
-        }
-      });
-
-      const percent = Math.round((completed / total) * 100);
-
-      document.getElementById("progress-label").textContent =
-        `Progress: ${percent}%`;
-
-      document.getElementById("progress-bar-fill").style.width =
-        percent + "%";
-
-      // Move monkey
-      const monkey = document.getElementById("progress-monkey");
-      const barWidth = document.getElementById("progress-bar-bg").offsetWidth;
-      const monkeyX = (percent / 100) * (barWidth - 40);
-      monkey.style.left = monkeyX + "px";
-
-      // Trails
-      dropBanana(monkeyX, -10);
-      dropSparkle(monkeyX, -10);
-
-      if (percent === 100) {
-        showCompletion();
-      }
-    }
-
-    checks.forEach(check => {
-      check.addEventListener("change", () => {
-        const key = "lesson_" + check.dataset.lesson;
-        localStorage.setItem(key, check.checked);
-        updateProgress();
-      });
-    });
-
-    function scrollToLesson(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-    }
-
-    function showCompletion() {
-      const badge = document.getElementById("completion-badge");
-      badge.style.display = "block";
-
-      const monkey = document.getElementById("progress-monkey");
-      monkey.classList.add("monkey-wiggle");
-
-      document.getElementById("monkey-speech").style.display = "block";
-
-      startConfetti();
-    }
-
-    function dropBanana(x, y) {
-      const bar = document.getElementById("progress-bar-bg");
-      const banana = document.createElement("img");
-      banana.src = "logo.png";  // you can swap to a banana icon later
-      banana.className = "banana";
-      banana.style.left = x + "px";
-      banana.style.top = (y - 10) + "px";
-
-      bar.appendChild(banana);
-
-      setTimeout(() => banana.remove(), 2000);
-    }
-
-    function dropSparkle(x, y) {
-      const bar = document.getElementById("progress-bar-bg");
-      const sparkle = document.createElement("div");
-      sparkle.className = "sparkle";
-      sparkle.style.left = x + "px";
-      sparkle.style.top = (y + 5) + "px";
-
-      bar.appendChild(sparkle);
-
-      setTimeout(() => sparkle.remove(), 800);
-    }
-
-    function startConfetti() {
-      const canvas = document.getElementById("confetti-canvas");
-      canvas.style.display = "block";
-      const ctx = canvas.getContext("2d");
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const pieces = [];
-      for (let i = 0; i < 150; i++) {
-        pieces.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
-          size: Math.random() * 8 + 4,
-          speed: Math.random() * 3 + 2,
-          color: ["#ffe66b", "#2f6fff", "#ff9f1c"][Math.floor(Math.random() * 3)]
-        });
-      }
-
-      let running = true;
-
-      function update() {
-        if (!running) return;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        pieces.forEach(p => {
-          p.y += p.speed;
-          if (p.y > canvas.height) p.y = -10;
-
-          ctx.fillStyle = p.color;
-          ctx.fillRect(p.x, p.y, p.size, p.size);
-        });
-
-        requestAnimationFrame(update);
-      }
-
-      update();
-
-      // stop after 10 seconds
-      setTimeout(() => {
-        running = false;
-        canvas.style.display = "none";
-      }, 10000);
-    }
-
-    updateProgress();
-  </script>
 </body>
 </html>
-
