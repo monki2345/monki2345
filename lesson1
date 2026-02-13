@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Strong Passwords - monki2345</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lexend', sans-serif;
+      background: linear-gradient(135deg, #e6f3ff 0%, #f0f7ff 100%);
+      color: #123;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #sidebar {
+      width: 260px;
+      background: #2f6fff;
+      color: white;
+      padding: 24px;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    #sidebar .badge {
+      width: 160px;
+      height: 160px;
+      background: #ffe66b;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border: 5px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #sidebar .badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #sidebar h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    #sidebar a:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateX(4px);
+    }
+
+    #content {
+      flex: 1;
+      margin-left: 260px;
+      padding-bottom: 40px;
+    }
+
+    nav {
+      background: #2f6fff;
+      padding: 16px 32px;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    #progress-container {
+      max-width: 900px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+
+    #progress-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #123a7a;
+      font-size: 1.1rem;
+    }
+
+    #progress-bar-bg {
+      width: 100%;
+      height: 28px;
+      background: #c7dfff;
+      border-radius: 14px;
+      overflow: visible;
+      border: 3px solid #2f6fff;
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ffe66b 0%, #ffd700 100%);
+      border-radius: 11px;
+      transition: width 0.5s ease;
+    }
+
+    #progress-monkey {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      transition: left 0.5s ease;
+      animation: monkeyBounce 1s infinite ease-in-out;
+    }
+
+    #progress-monkey img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+
+    @keyframes monkeyBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    .lesson-bubble {
+      background: white;
+      border: 3px solid #2f6fff;
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(47, 111, 255, 0.1);
+    }
+
+    .lesson-bubble h1 {
+      color: #2f6fff;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lesson-bubble h2 {
+      color: #123a7a;
+      margin: 28px 0 16px;
+      font-size: 1.5rem;
+    }
+
+    .lesson-bubble p {
+      line-height: 1.8;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .lesson-bubble ul {
+      margin: 16px 0 16px 24px;
+    }
+
+    .lesson-bubble li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .lesson-bubble strong {
+      color: #2f6fff;
+    }
+
+    .challenge-box {
+      background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+      border: 3px solid #ffd700;
+      border-radius: 16px;
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    }
+
+    .challenge-box h3 {
+      color: #d97706;
+      margin-bottom: 16px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .challenge-box p {
+      color: #666;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .quiz-option {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .quiz-option:hover {
+      border-color: #2f6fff;
+      background: #f0f7ff;
+      transform: translateX(4px);
+    }
+
+    .quiz-option.correct {
+      border-color: #4CAF50;
+      background: #e8f5e9;
+    }
+
+    .quiz-option.incorrect {
+      border-color: #f44336;
+      background: #ffebee;
+    }
+
+    .quiz-feedback {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.correct {
+      background: #e8f5e9;
+      border: 2px solid #4CAF50;
+      color: #2e7d32;
+    }
+
+    .quiz-feedback.incorrect {
+      background: #ffebee;
+      border: 2px solid #f44336;
+      color: #c62828;
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #d32f2f;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #2f6fff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Lexend', sans-serif;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      margin-top: 24px;
+    }
+
+    .btn:hover {
+      background: #1f4fcc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(47, 111, 255, 0.3);
+    }
+
+    .complete-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 20px;
+      background: #f0f7ff;
+      border-radius: 12px;
+      border: 2px solid #2f6fff;
+    }
+
+    .complete-checkbox input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .complete-checkbox label {
+      font-weight: 600;
+      color: #2f6fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+      }
+
+      #content {
+        margin-left: 0;
+      }
+
+      .lesson-bubble h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar">
+    <div class="badge">
+      <img src="logo.png" alt="monki2345 mascot">
+    </div>
+
+    <h3>Safety Lessons</h3>
+
+    <a href="lesson1.html" style="background: rgba(255,255,255,0.3);">🔐 Strong Passwords</a>
+    <a href="lesson2.html">🎣 Spotting Scams</a>
+    <a href="lesson3.html">👣 Digital Footprints</a>
+    <a href="lessons.html" style="margin-top: 20px; background: rgba(255,255,255,0.1);">← Back to Menu</a>
+  </div>
+
+  <div id="content">
+    <nav>
+      <div>🐵 monki2345 - Lesson 1</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+      </div>
+    </nav>
+
+    <div id="progress-container">
+      <div id="progress-label">Your Progress: 0%</div>
+      <div id="progress-bar-bg">
+        <div id="progress-bar-fill"></div>
+        <div id="progress-monkey">
+          <img src="logo.png" alt="Progress monkey">
+        </div>
+      </div>
+    </div>
+
+    <main class="page">
+      <div class="lesson-bubble">
+        <h1>🔐 Strong Passwords</h1>
+
+        <p><strong>What is a password?</strong><br>
+        A password is a secret code that protects your accounts. Only you should know it. Think of it like the key to your house – you wouldn't want anyone else to have a copy!</p>
+
+        <h2>Why Strong Passwords Matter</h2>
+        <p>Weak passwords are easy for hackers to guess. They have programs that can try millions of password combinations in seconds. Strong passwords keep your stuff safe by making it nearly impossible to crack.</p>
+
+        <h2>How to Make a Strong Password</h2>
+        <ul>
+          <li><strong>Use 12+ characters</strong> – Longer is stronger!</li>
+          <li><strong>Mix letters, numbers, and symbols</strong> – Like #, @, $, !</li>
+          <li><strong>Avoid personal info</strong> – No birthdays, pet names, or favorite teams</li>
+          <li><strong>Never reuse passwords</strong> – Each account should have its own unique password</li>
+        </ul>
+
+        <h2>Examples</h2>
+        <p><strong>Weak passwords:</strong></p>
+        <ul>
+          <li><code>monkey123</code> – Too simple and predictable</li>
+          <li><code>password</code> – The most common (and worst!) password</li>
+          <li><code>123456</code> – Hackers try this first</li>
+        </ul>
+
+        <p><strong>Strong passwords:</strong></p>
+        <ul>
+          <li><code>BlueSky!Tree92$</code> – Long, random, mixed characters</li>
+          <li><code>Sunset#Wave204*</code> – Hard to guess, easy to remember</li>
+        </ul>
+
+        <h2>Pro Tip</h2>
+        <p>Use a password manager if you can – it creates and remembers super strong passwords for you!</p>
+
+        <div class="challenge-box">
+          <h3>🐵 Monkey Challenge</h3>
+          <p>Imagine someone is trying to guess your password. What part of your life would they guess first? Your favorite color? Your pet's name? Your birthday?</p>
+          <p><em>If your real password includes any of those things... it's time to change it!</em></p>
+          
+          <h4 style="margin-top: 24px; margin-bottom: 16px; color: #d97706;">Quick Quiz:</h4>
+          <p style="font-style: normal; font-weight: 600; color: #333;">Which password is strongest?</p>
+          
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            A) <code>ilovepizza</code>
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            B) <code>MyDog2020</code>
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, true)">
+            C) <code>Tr33!House#92</code>
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            D) <code>password123</code>
+          </div>
+
+          <div id="quiz-feedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="complete-checkbox">
+          <input type="checkbox" id="lesson-complete" onchange="markComplete()">
+          <label for="lesson-complete">✅ I've completed this lesson!</label>
+        </div>
+
+        <a href="lesson2.html" class="btn">Next Lesson: Spotting Scams →</a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let quizAnswered = false;
+
+    function checkAnswer(element, isCorrect) {
+      if (quizAnswered) return;
+      
+      quizAnswered = true;
+      const feedback = document.getElementById('quiz-feedback');
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        feedback.className = 'quiz-feedback correct show';
+        feedback.innerHTML = '✅ <strong>Correct!</strong> Tr33!House#92 is the strongest because it has uppercase and lowercase letters, numbers, and symbols – and it\'s not a common word!';
+      } else {
+        element.classList.add('incorrect');
+        feedback.className = 'quiz-feedback incorrect show';
+        feedback.innerHTML = '❌ <strong>Not quite.</strong> Look for the password with uppercase, lowercase, numbers, AND symbols. Try again!';
+        setTimeout(() => {
+          quizAnswered = false;
+          element.classList.remove('incorrect');
+          feedback.classList.remove('show');
+        }, 2000);
+      }
+    }
+
+    function markComplete() {
+      const isChecked = document.getElementById('lesson-complete').checked;
+      localStorage.setItem('lesson_passwords', isChecked.toString());
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const lessons = ['passwords', 'scams', 'footprints'];
+      let completed = 0;
+
+      lessons.forEach(lesson => {
+        if (localStorage.getItem(`lesson_${lesson}`) === 'true') {
+          completed++;
+        }
+      });
+
+      const percent = Math.round((completed / lessons.length) * 100);
+      
+      document.getElementById('progress-label').textContent = 
+        `Your Progress: ${percent}%`;
+      
+      const fill = document.getElementById('progress-bar-fill');
+      fill.style.width = percent + '%';
+
+      const monkey = document.getElementById('progress-monkey');
+      const barWidth = document.getElementById('progress-bar-bg').offsetWidth;
+      const monkeyX = (percent / 100) * (barWidth - 50);
+      monkey.style.left = monkeyX + 'px';
+    }
+
+    // Initialize
+    if (localStorage.getItem('lesson_passwords') === 'true') {
+      document.getElementById('lesson-complete').checked = true;
+    }
+    updateProgress();
+  </script>
+</body>
+</html>
