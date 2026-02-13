@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: Spotting Scams - monki2345</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Lexend', sans-serif;
+      background: linear-gradient(135deg, #e6f3ff 0%, #f0f7ff 100%);
+      color: #123;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #sidebar {
+      width: 260px;
+      background: #2f6fff;
+      color: white;
+      padding: 24px;
+      box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    #sidebar .badge {
+      width: 160px;
+      height: 160px;
+      background: #ffe66b;
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border: 5px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #sidebar .badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #sidebar h3 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    #sidebar a {
+      display: block;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    #sidebar a:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateX(4px);
+    }
+
+    #content {
+      flex: 1;
+      margin-left: 260px;
+      padding-bottom: 40px;
+    }
+
+    nav {
+      background: #2f6fff;
+      padding: 16px 32px;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    #progress-container {
+      max-width: 900px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+
+    #progress-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #123a7a;
+      font-size: 1.1rem;
+    }
+
+    #progress-bar-bg {
+      width: 100%;
+      height: 28px;
+      background: #c7dfff;
+      border-radius: 14px;
+      overflow: visible;
+      border: 3px solid #2f6fff;
+      position: relative;
+      margin-bottom: 12px;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ffe66b 0%, #ffd700 100%);
+      border-radius: 11px;
+      transition: width 0.5s ease;
+    }
+
+    #progress-monkey {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      transition: left 0.5s ease;
+      animation: monkeyBounce 1s infinite ease-in-out;
+    }
+
+    #progress-monkey img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+
+    @keyframes monkeyBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    .lesson-bubble {
+      background: white;
+      border: 3px solid #2f6fff;
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(47, 111, 255, 0.1);
+    }
+
+    .lesson-bubble h1 {
+      color: #2f6fff;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lesson-bubble h2 {
+      color: #123a7a;
+      margin: 28px 0 16px;
+      font-size: 1.5rem;
+    }
+
+    .lesson-bubble p {
+      line-height: 1.8;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .lesson-bubble ul {
+      margin: 16px 0 16px 24px;
+    }
+
+    .lesson-bubble li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .lesson-bubble strong {
+      color: #2f6fff;
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, #fff0f0 0%, #fff5f5 100%);
+      border: 3px solid #f44336;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .warning-box h3 {
+      color: #c62828;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .challenge-box {
+      background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+      border: 3px solid #ffd700;
+      border-radius: 16px;
+      padding: 24px;
+      margin: 28px 0;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    }
+
+    .challenge-box h3 {
+      color: #d97706;
+      margin-bottom: 16px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .challenge-box p {
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .scam-example {
+      background: #f5f5f5;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      font-family: 'Courier New', monospace;
+      font-style: italic;
+    }
+
+    .quiz-option {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .quiz-option:hover {
+      border-color: #2f6fff;
+      background: #f0f7ff;
+      transform: translateX(4px);
+    }
+
+    .quiz-option.correct {
+      border-color: #4CAF50;
+      background: #e8f5e9;
+    }
+
+    .quiz-option.incorrect {
+      border-color: #f44336;
+      background: #ffebee;
+    }
+
+    .quiz-feedback {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.correct {
+      background: #e8f5e9;
+      border: 2px solid #4CAF50;
+      color: #2e7d32;
+    }
+
+    .quiz-feedback.incorrect {
+      background: #ffebee;
+      border: 2px solid #f44336;
+      color: #c62828;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #2f6fff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Lexend', sans-serif;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.1rem;
+      margin-top: 24px;
+    }
+
+    .btn:hover {
+      background: #1f4fcc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(47, 111, 255, 0.3);
+    }
+
+    .complete-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 20px;
+      background: #f0f7ff;
+      border-radius: 12px;
+      border: 2px solid #2f6fff;
+    }
+
+    .complete-checkbox input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+
+    .complete-checkbox label {
+      font-weight: 600;
+      color: #2f6fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+      }
+
+      #content {
+        margin-left: 0;
+      }
+
+      .lesson-bubble h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar">
+    <div class="badge">
+      <img src="logo.png" alt="monki2345 mascot">
+    </div>
+
+    <h3>Safety Lessons</h3>
+
+    <a href="lesson1.html">🔐 Strong Passwords</a>
+    <a href="lesson2.html" style="background: rgba(255,255,255,0.3);">🎣 Spotting Scams</a>
+    <a href="lesson3.html">👣 Digital Footprints</a>
+    <a href="lessons.html" style="margin-top: 20px; background: rgba(255,255,255,0.1);">← Back to Menu</a>
+  </div>
+
+  <div id="content">
+    <nav>
+      <div>🐵 monki2345 - Lesson 2</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+      </div>
+    </nav>
+
+    <div id="progress-container">
+      <div id="progress-label">Your Progress: 0%</div>
+      <div id="progress-bar-bg">
+        <div id="progress-bar-fill"></div>
+        <div id="progress-monkey">
+          <img src="logo.png" alt="Progress monkey">
+        </div>
+      </div>
+    </div>
+
+    <main class="page">
+      <div class="lesson-bubble">
+        <h1>🎣 Spotting Scams & Phishing</h1>
+
+        <p><strong>What is phishing?</strong><br>
+        Phishing is when someone pretends to be a trusted person or company to trick you into giving away personal information like passwords, credit card numbers, or private photos. It's called "phishing" because scammers are "fishing" for your data!</p>
+
+        <h2>Common Signs of a Scam</h2>
+        <div class="warning-box">
+          <h3>⚠️ Red Flags to Watch For:</h3>
+          <ul>
+            <li><strong>Urgent language:</strong> "Act NOW!" or "Your account will be deleted in 24 hours!"</li>
+            <li><strong>Requests for passwords:</strong> Real companies NEVER ask for your password via email</li>
+            <li><strong>Weird links:</strong> URLs that look misspelled or suspicious (micr0soft.com instead of microsoft.com)</li>
+            <li><strong>Too good to be true:</strong> "You won $1,000,000!" or "Free iPhone!"</li>
+            <li><strong>Unexpected attachments:</strong> Files you didn't ask for from people you don't know</li>
+            <li><strong>Poor grammar:</strong> Lots of spelling mistakes or odd wording</li>
+          </ul>
+        </div>
+
+        <h2>Real-World Example</h2>
+        <div class="scam-example">
+          "URGENT! Your Netflix account will be suspended in 24 hours unless you verify your payment information. Click here immediately: http://netfl1x-verify.com"
+        </div>
+        <p><strong>Why this is a scam:</strong></p>
+        <ul>
+          <li>Uses urgency to make you panic</li>
+          <li>The link is NOT the real Netflix URL (notice the "1" instead of "i")</li>
+          <li>Real companies contact you through their official app or website</li>
+        </ul>
+
+        <h2>How to Stay Safe</h2>
+        <ul>
+          <li><strong>Don't click suspicious links</strong> – Go directly to the website instead</li>
+          <li><strong>Verify the sender</strong> – Check the email address carefully</li>
+          <li><strong>Don't download random files</strong> – They could contain viruses</li>
+          <li><strong>Ask an adult</strong> – If something feels wrong, it probably is</li>
+          <li><strong>Report scams</strong> – Mark emails as spam to help others</li>
+        </ul>
+
+        <h2>Remember This</h2>
+        <p style="font-size: 1.2rem; font-weight: 600; color: #2f6fff; text-align: center; padding: 20px; background: #f0f7ff; border-radius: 12px; margin: 20px 0;">
+          Real companies will NEVER ask for your password via email, text, or social media!
+        </p>
+
+        <div class="challenge-box">
+          <h3>🐵 Monkey Challenge</h3>
+          <p>Read this message in your head:</p>
+          <div class="scam-example" style="margin: 16px 0;">
+            "Congratulations! You've been selected as a winner! Click this link now to claim your prize before it expires!"
+          </div>
+          <p><strong>Now ask yourself: Who benefits if I panic and click quickly?</strong></p>
+          <p style="font-style: italic;">If the answer isn't "you," it's probably a scam. Scammers want you to act before you think!</p>
+          
+          <h4 style="margin-top: 24px; margin-bottom: 16px; color: #d97706;">Quick Quiz:</h4>
+          <p style="font-style: normal; font-weight: 600; color: #333;">Which message is most likely a scam?</p>
+          
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            A) A text from your mom asking what you want for dinner
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, true)">
+            B) An email saying "Your bank account has been compromised! Click here to verify your identity NOW!"
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            C) A notification from your school app about tomorrow's schedule
+          </div>
+          <div class="quiz-option" onclick="checkAnswer(this, false)">
+            D) A message from a friend asking about homework
+          </div>
+
+          <div id="quiz-feedback" class="quiz-feedback"></div>
+        </div>
+
+        <div class="complete-checkbox">
+          <input type="checkbox" id="lesson-complete" onchange="markComplete()">
+          <label for="lesson-complete">✅ I've completed this lesson!</label>
+        </div>
+
+        <a href="lesson3.html" class="btn">Next Lesson: Digital Footprints →</a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let quizAnswered = false;
+
+    function checkAnswer(element, isCorrect) {
+      if (quizAnswered) return;
+      
+      quizAnswered = true;
+      const feedback = document.getElementById('quiz-feedback');
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        feedback.className = 'quiz-feedback correct show';
+        feedback.innerHTML = '✅ <strong>Correct!</strong> This message uses urgency ("NOW!"), claims your account is compromised, and asks you to click a link – all major red flags for phishing scams!';
+      } else {
+        element.classList.add('incorrect');
+        feedback.className = 'quiz-feedback incorrect show';
+        feedback.innerHTML = '❌ <strong>Not quite.</strong> Look for messages that create panic, ask for personal info, or demand immediate action. Try again!';
+        setTimeout(() => {
+          quizAnswered = false;
+          element.classList.remove('incorrect');
+          feedback.classList.remove('show');
+        }, 2500);
+      }
+    }
+
+    function markComplete() {
+      const isChecked = document.getElementById('lesson-complete').checked;
+      localStorage.setItem('lesson_scams', isChecked.toString());
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const lessons = ['passwords', 'scams', 'footprints'];
+      let completed = 0;
+
+      lessons.forEach(lesson => {
+        if (localStorage.getItem(`lesson_${lesson}`) === 'true') {
+          completed++;
+        }
+      });
+
+      const percent = Math.round((completed / lessons.length) * 100);
+      
+      document.getElementById('progress-label').textContent = 
+        `Your Progress: ${percent}%`;
+      
+      const fill = document.getElementById('progress-bar-fill');
+      fill.style.width = percent + '%';
+
+      const monkey = document.getElementById('progress-monkey');
+      const barWidth = document.getElementById('progress-bar-bg').offsetWidth;
+      const monkeyX = (percent / 100) * (barWidth - 50);
+      monkey.style.left = monkeyX + 'px';
+    }
+
+    // Initialize
+    if (localStorage.getItem('lesson_scams') === 'true') {
+      document.getElementById('lesson-complete').checked = true;
+    }
+    updateProgress();
+  </script>
+</body>
+</html>
